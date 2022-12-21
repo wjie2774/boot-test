@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzzwww.post.dao.FileLevelMapper">
+  <resultMap id="BaseResultMap" type="com.zzzwww.post.dto.entity.FileLevel">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="level_name" jdbcType="VARCHAR" property="levelName" />
+    <result column="lead_type" jdbcType="VARCHAR" property="leadType" />
+    <result column="current_level" jdbcType="INTEGER" property="currentLevel" />
+    <result column="whether_initialize" jdbcType="INTEGER" property="whetherInitialize" />
+    <result column="whether_live" jdbcType="INTEGER" property="whetherLive" />
+    <result column="property_id" jdbcType="BIGINT" property="propertyId" />
+    <result column="level_description" jdbcType="VARCHAR" property="levelDescription" />
+    <result column="create_by" jdbcType="BIGINT" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="BIGINT" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="TINYINT" property="deleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, parent_id, level_name, lead_type, current_level, whether_initialize, whether_live, property_id, level_description, create_by, create_time, update_by,
+    update_time, deleted
+  </sql>
+  <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from components_file_level
+    where id = #{id,jdbcType=BIGINT}
+    and deleted = 0
+  </select>
+
+  <select id="selectByParentIdAndPropertyId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from components_file_level
+    where
+    deleted = 0
+    and lead_type = #{leadType,jdbcType=VARCHAR}
+    and parent_id = #{parentId,jdbcType=BIGINT}
+    and (property_id = #{propertyId,jdbcType=BIGINT} or whether_initialize = 1)
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Long">
+    delete from components_file_level
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zzzwww.post.dto.entity.FileLevel" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    insert into components_file_level (id, parent_id, level_name,
+    lead_type, current_level, whether_initialize, whether_live, property_id, level_description, create_by,
+    create_time, update_by, update_time,
+    deleted)
+    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{levelName,jdbcType=VARCHAR},
+    #{leadType,jdbcType=VARCHAR}, #{currentLevel,jdbcType=INTEGER}, #{whetherInitialize,jdbcType=INTEGER}
+    ,#{whetherLive,jdbcType=INTEGER} , #{propertyId,jdbcType=BIGINT}, #{levelDescription,jdbcType=VARCHAR}
+    , #{createBy,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP},
+    #{deleted,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzzwww.post.dto.entity.FileLevel" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    insert into components_file_level
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="levelName != null">
+        level_name,
+      </if>
+      <if test="leadType != null">
+        lead_type,
+      </if>
+      <if test="currentLevel != null">
+        current_level,
+      </if>
+      <if test="whetherInitialize != null">
+        whether_initialize,
+      </if>
+      <if test="whetherLive != null">
+        whether_live,
+      </if>
+      <if test="propertyId != null">
+        property_id,
+      </if>
+      <if test="levelDescription != null">
+        level_description,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="levelName != null">
+        #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="leadType != null">
+        #{leadType,jdbcType=VARCHAR},
+      </if>
+      <if test="currentLevel != null">
+        #{currentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="whetherInitialize != null">
+        #{whetherInitialize,jdbcType=INTEGER},
+      </if>
+      <if test="whetherLive != null">
+        #{whetherLive,jdbcType=INTEGER},
+      </if>
+      <if test="propertyId != null">
+        #{propertyId,jdbcType=BIGINT},
+      </if>
+      <if test="levelDescription != null">
+        #{levelDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzzwww.post.dto.entity.FileLevel">
+    update components_file_level
+    <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="levelName != null">
+        level_name = #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="leadType != null">
+        lead_type = #{leadType,jdbcType=VARCHAR},
+      </if>
+      <if test="currentLevel != null">
+        current_level = #{currentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="whetherInitialize != null">
+        whether_initialize = #{whetherInitialize,jdbcType=INTEGER},
+      </if>
+      <if test="whetherLive != null">
+        whether_live = #{whetherLive,jdbcType=INTEGER},
+      </if>
+      <if test="propertyId != null">
+        property_id = #{propertyId,jdbcType=BIGINT},
+      </if>
+      <if test="levelDescription != null">
+        level_description = #{levelDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzzwww.post.dto.entity.FileLevel">
+    update components_file_level
+    set parent_id = #{parentId,jdbcType=BIGINT},
+    level_name = #{levelName,jdbcType=VARCHAR},
+    lead_type = #{leadType,jdbcType=VARCHAR},
+    current_level = #{currentLevel,jdbcType=INTEGER},
+    whether_initialize = #{whetherInitialize,jdbcType=INTEGER},
+    whether_live = #{whetherLive,jdbcType=INTEGER},
+    property_id = #{propertyId,jdbcType=BIGINT},
+    level_description = #{levelDescription,jdbcType=VARCHAR},
+    create_by = #{createBy,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_by = #{updateBy,jdbcType=BIGINT},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    deleted = #{deleted,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+  <select id="tree" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"></include>
+    FROM
+    (
+    SELECT
+    t1.*,
+    IF
+    ( FIND_IN_SET( parent_id, @parent_ids ) > 0,
+    @parent_ids := CONCAT( @parent_ids, ',', id ),
+    '0' ) AS ischild
+    FROM
+    (
+    SELECT
+    *
+    FROM
+    components_file_level AS t
+    WHERE
+    t.deleted = 0
+    and (t.property_id = #{propertyId} or t.whether_initialize = 1)
+    ORDER BY
+    t.id ASC ) t1,
+    (
+    SELECT
+    @parent_ids := #{parentId} ) t2
+    ) t3
+    WHERE
+    ischild != '0'
+  </select>
+
+  <select id="selectByIds" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    components_file_level
+    where
+    deleted = 0
+    <if test="ids != null and ids.size() > 0">
+      and id in
+      <foreach collection="ids" item="id" open="(" separator="," close=")">
+        #{id}
+      </foreach>
+    </if>
+  </select>
+
+  <select id="selectDuplicateName" resultType="int">
+    select
+      count(*)
+    from
+      components_file_level
+    where
+      deleted = 0
+    and
+    level_name = #{name}
+    and
+    (property_id = #{propertyId}
+    or
+    whether_initialize = 1 )
+  </select>
+
+  <select id="selectByPropertyIdAndName" resultType="java.lang.Long">
+    SELECT id
+    FROM components_file_level
+    WHERE deleted = 0
+    AND level_name = #{name}
+    AND property_id = #{propertyId}
+    AND whether_initialize = 0
+  </select>
+
+  <select id="selectByInitialize" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"></include>
+    FROM components_file_level
+    WHERE deleted = 0
+    AND whether_initialize = 1
+  </select>
+
+</mapper>

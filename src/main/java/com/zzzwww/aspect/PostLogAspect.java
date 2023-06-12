@@ -33,7 +33,7 @@ public class PostLogAspect {
 
 
     @Around("pointcut()")
-    public void postLog(ProceedingJoinPoint pjp) throws Throwable {
+    public Object postLog(ProceedingJoinPoint pjp) throws Throwable {
         MethodSignature signature = (MethodSignature) pjp.getSignature();
         Method method = signature.getMethod();
         PostLog postLog = new PostLog();
@@ -51,5 +51,6 @@ public class PostLogAspect {
         postLog.setResult(JSON.toJSONString(result));
         postLog.setCreateTime(new Date());
         postLogMapper.insert(postLog);
+        return result;
     }
 }

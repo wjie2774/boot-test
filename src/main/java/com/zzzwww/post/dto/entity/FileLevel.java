@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
 @TableName("components_file_level")
 public class FileLevel {
     private Long id;

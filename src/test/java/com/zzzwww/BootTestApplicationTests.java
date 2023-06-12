@@ -1,34 +1,27 @@
 package com.zzzwww;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.*;
-
-import com.baomidou.mybatisplus.extension.api.R;
 import com.zzzwww.post.dao.AttachmentAcquisitionMapper;
 import com.zzzwww.post.dto.entity.AttachmentAcquisition;
 import com.zzzwww.post.dto.entity.PostLog;
 import com.zzzwww.post.dto.entity.User;
 import com.zzzwww.post.service.AttachmentService;
-import com.zzzwww.post.service.TestThreadLocalServicce;
-import lombok.Data;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.util.Assert;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.*;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 @SpringBootTest
 class BootTestApplicationTests {
 
-    @Autowired
-    TestThreadLocalServicce testThreadLocalServicce;
+
     @Autowired
     AttachmentAcquisitionMapper attachmentAcquisitionMapper;
     @Autowired
@@ -44,15 +37,11 @@ class BootTestApplicationTests {
     }
 
 
-    @Test
-    void testLocalVariable() {
-        testThreadLocalServicce.test1();
-    }
 
 
     @Test
     @Rollback(false)
-    void batchDData() {
+    void batchData() {
 
         for (long i = 0; i < 800; i++) {
             List<AttachmentAcquisition> acquisitions = new ArrayList<>(1000000);

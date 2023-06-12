@@ -5,6 +5,7 @@ import cn.hutool.extra.servlet.ServletUtil;
 import com.alibaba.fastjson.JSON;
 import com.zzzwww.post.dao.PostLogMapper;
 import com.zzzwww.post.dto.entity.PostLog;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -19,10 +20,14 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Aspect
 @Component
 @Order(20)
+@Slf4j
 public class PostLogAspect {
 
     @Autowired
@@ -33,9 +38,10 @@ public class PostLogAspect {
 
 
     @Around("pointcut()")
-    public void postLog(ProceedingJoinPoint pjp) throws Throwable {
+    public Object postLog(ProceedingJoinPoint pjp) throws Throwable {
         MethodSignature signature = (MethodSignature) pjp.getSignature();
         Method method = signature.getMethod();
+        log.info("{} Start collecting logs", method.getName());
         PostLog postLog = new PostLog();
         postLog.setMethodName(method.getName());
         postLog.setParam(JSON.toJSONString(pjp.getArgs()));
@@ -51,5 +57,7 @@ public class PostLogAspect {
         postLog.setResult(JSON.toJSONString(result));
         postLog.setCreateTime(new Date());
         postLogMapper.insert(postLog);
+        log.info("{} End collecting logs", method.getName());
+        return result;
     }
 }

@@ -3,6 +3,7 @@ package com.zzzwww.tree.util;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ReflectUtil;
 import com.zzzwww.tree.dto.TreeConfig;
+import lombok.Data;
 import lombok.experimental.UtilityClass;
 
 import java.lang.reflect.Field;
@@ -12,7 +13,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@UtilityClass
 public class TreeUtils {
 
     public static <T, E> List<T> buildTree(List<T> listParam, E parentId, TreeConfig treeConfig) {
@@ -79,6 +79,5 @@ public class TreeUtils {
             }
         }
     }
-
 
 }

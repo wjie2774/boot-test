@@ -32,8 +32,6 @@ public class TestCacheController {
     @GetMapping("/debug")
     @Cacheable(value = "debug", key = "'data:room:file:level:initialize'")
     public List<FileLevelTreeTreeResponse> test1() {
-//        Object redisValue = redisUtil.get("574");
-        redisUtil.set("xxx", "xxxx");
         List<FileLevel> fileLevels = fileLevelMapper.selectByInitialize();
         TreeConfig treeConfig = new TreeConfig();
         treeConfig.setParentIdKey("parentId");
@@ -52,9 +50,5 @@ public class TestCacheController {
         return treeResponses;
     }
 
-    @GetMapping("/testTheadLocal")
-    public void testTheadLocal() {
-
-    }
 
 }

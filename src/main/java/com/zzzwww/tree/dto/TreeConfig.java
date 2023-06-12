@@ -9,7 +9,5 @@ public class TreeConfig {
 
     private String parentIdKey = "parentId";
 
-    private String sortKey = "sort";
-
     private String children = "children";
 }

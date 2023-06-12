@@ -1,4 +1,4 @@
-package com.zzzwww.chain;
+package com.zzzwww.design.chain;
 
 public class TwoFilterChain extends OrderChain{
     @Override
